@@ -1,0 +1,59 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+      auto-index-creation: false
+  
+  jackson:
+    serialization:
+      indent-output: false
+
+# JWT pour production (variable d'environnement obligatoire)
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 28800000 # 8 heures en production
+  issuer: coltros-api-qa
+
+# Logs en production
+logging:
+  level:
+    root: WARN
+    com.coltros: INFO
+    org.springframework.security: WARN
+  file:
+    name: /var/log/coltros/coltros-qa.log
+    max-size: 50MB
+    max-history: 90
+
+# Swagger désactivé en production
+springdoc:
+  swagger-ui:
+    enabled: false
+  api-docs:
+    enabled: false
+
+# CORS restrictif en production
+cors:
+  allowed-origins: ${ALLOWED_ORIGINS:https://coltros.com}
+  allowed-methods: GET,POST,PUT,DELETE,PATCH
+  allowed-headers: Authorization,Content-Type
+  allow-credentials: true
+  max-age: 3600
+
+# Actuator restreint en production
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+# Sécurité renforcée
+server:
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
