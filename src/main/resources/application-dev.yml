@@ -1,0 +1,58 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/coltros_dev
+      auto-index-creation: true
+  
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+  
+  jackson:
+    serialization:
+      indent-output: true
+
+# JWT pour développement
+jwt:
+  secret: DevSecretKeyForColtrosDevelopmentOnly2025
+  expiration: 86400000 
+
+# Logs détaillés en dev
+logging:
+  level:
+    root: INFO
+    com.coltros: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.data.mongodb.core: DEBUG
+  file:
+    name: logs/coltros-dev.log
+
+# Swagger activé en dev
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true
+
+# CORS permissif en dev
+cors:
+  allowed-origins: http://localhost:3000,http://localhost:4200,http://localhost:8080
+  allowed-methods: "*"
+  allowed-headers: "*"
+  allow-credentials: true
+
+# Actuator complet en dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+# Configuration de debug
+debug: false
