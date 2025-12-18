@@ -1,13 +1,12 @@
 package com.example.coltros.entity;
 
-import com.example.coltros.enums.TypeColis;
 import com.example.coltros.enums.StatutColis;
-import lombok.AllArgsConstructor;
+import com.example.coltros.enums.TypeColis;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -17,10 +16,9 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Document(collection = "colis")
-public class Colis {
+@TypeAlias("colis")
+public abstract class Colis {
 
     @Id
     private String id;
@@ -42,20 +40,11 @@ public class Colis {
     @Field("statuts")
     private StatutColis statuts = StatutColis.EN_ATTENTE;
 
-    @Field("instructions_manutention")
-    private String instructionsManutention;
-
-    @Field("temperature_min")
-    private Double temperatureMin;
-
-    @Field("temperature_max")
-    private Double temperatureMax;
-
     @Field("transporteur_id")
     private String transporteurId;
 
-    @Field("transporteur_nom")
-    private String transporteurNom;
+    @Field("transporteur_login")
+    private String transporteurLogin;
 
     @CreatedDate
     @Field("created_at")
@@ -64,4 +53,8 @@ public class Colis {
     @LastModifiedDate
     @Field("updated_at")
     private LocalDateTime updatedAt;
+
+    public Colis(TypeColis type) {
+        this.type = type;
+    }
 }
