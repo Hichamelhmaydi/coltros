@@ -2,6 +2,7 @@ package com.example.coltros.entity;
 
 import com.example.coltros.enums.Role;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -36,4 +37,5 @@ public abstract class User {
     public User(Role role) {
         this.role = role;
     }
+    protected User() {}
 }
