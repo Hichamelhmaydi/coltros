@@ -5,6 +5,7 @@ import com.example.coltros.enums.TypeColis;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -18,8 +19,9 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "colis")
 @TypeAlias("colis")
 public abstract class Colis {
@@ -57,8 +59,4 @@ public abstract class Colis {
     @LastModifiedDate
     @Field("updated_at")
     private LocalDateTime updatedAt;
-
-    public Colis(TypeColis type) {
-        this.type = type;
-    }
 }
