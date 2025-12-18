@@ -2,7 +2,9 @@ package com.example.coltros.entity;
 
 import com.example.coltros.enums.StatutColis;
 import com.example.coltros.enums.TypeColis;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,6 +18,8 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "colis")
 @TypeAlias("colis")
 public abstract class Colis {
