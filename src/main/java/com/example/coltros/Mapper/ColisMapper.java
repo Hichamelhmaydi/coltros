@@ -1,55 +1,45 @@
 package com.example.coltros.Mapper;
 
+import com.example.coltros.entity.Colis;
 import com.example.coltros.DTO.Request.ColisRequest;
 import com.example.coltros.DTO.Request.ColisUpdateRequest;
 import com.example.coltros.DTO.Reponse.ColisResponse;
-import com.example.coltros.entity.*;
+import com.example.coltros.entity.ColisFragile;
+import com.example.coltros.entity.ColisFrigo;
+import com.example.coltros.entity.ColisStandard;
 import org.mapstruct.*;
-import org.springframework.stereotype.Component;
-
-@Component
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ColisMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "transporteurId", ignore = true)
-    @Mapping(target = "transporteurNom", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    Colis toEntity(ColisRequest request);
+    ColisResponse toDTO(Colis colis);
 
-    ColisResponse toResponse(Colis colis);
-
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "type", ignore = true)
-    @Mapping(target = "transporteurNom", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateEntity(ColisUpdateRequest request, @MappingTarget Colis colis);
-
-    default Colis createColisFromRequest(ColisRequest request) {
-        switch (request.getType()) {
-            case STANDARD:
-                ColisStandard standard = new ColisStandard();
-                standard.setPoids(request.getPoids());
-                standard.setAdresseDestination(request.getAdresseDestination());
-                return standard;
-            case FRAGILE:
-                ColisFragile fragile = new ColisFragile();
-                fragile.setPoids(request.getPoids());
-                fragile.setAdresseDestination(request.getAdresseDestination());
-                fragile.setInstructionsManutention(request.getInstructionsManutention());
-                return fragile;
-            case FRIGO:
-                ColisFrigo frigo = new ColisFrigo();
-                frigo.setPoids(request.getPoids());
-                frigo.setAdresseDestination(request.getAdresseDestination());
-                frigo.setTemperatureMin(request.getTemperatureMin());
-                frigo.setTemperatureMax(request.getTemperatureMax());
-                return frigo;
-            default:
-                throw new IllegalArgumentException("Type de colis non supporté");
-        }
+    default Colis toEntity(ColisRequest dto) {
+        return switch (dto.getType()) {
+            case STANDARD -> toStandardEntity(dto);
+            case FRAGILE -> toFragileEntity(dto);
+            case FRIGO -> toFrigoEntity(dto);
+        };
     }
+
+    @Mapping(target = "type", expression = "java(com.example.coltros.model.enums.TypeColis.STANDARD)")
+    ColisStandard toStandardEntity(ColisRequest dto);
+
+    @Mapping(target = "type", expression = "java(com.example.coltros.model.enums.TypeColis.FRAGILE)")
+    @Mapping(target = "instructionsManutention", source = "instructionsManutention")
+    ColisFragile toFragileEntity(ColisRequest dto);
+
+    @Mapping(target = "type", expression = "java(com.example.coltros.model.enums.TypeColis.FRIGO)")
+    @Mapping(target = "temperatureMin", source = "temperatureMin")
+    @Mapping(target = "temperatureMax", source = "temperatureMax")
+    ColisFrigo toFrigoEntity(ColisRequest dto);
+
+    void updateEntity(ColisUpdateRequest dto, @MappingTarget Colis colis);
+
+    @Mapping(target = "instructionsManutention", source = "instructionsManutention")
+    void updateFragileEntity(ColisUpdateRequest dto, @MappingTarget ColisFragile fragile);
+
+    @Mapping(target = "temperatureMin", source = "temperatureMin")
+    @Mapping(target = "temperatureMax", source = "temperatureMax")
+    void updateFrigoEntity(ColisUpdateRequest dto, @MappingTarget ColisFrigo frigo);
 }
