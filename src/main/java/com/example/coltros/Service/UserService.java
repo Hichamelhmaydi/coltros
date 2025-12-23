@@ -13,7 +13,7 @@ public interface UserService {
     // Transporteurs
     Page<TransporteurResponse> findAllTransporteurs(TransporteurFilterDTO filter);
 
-    TransporteurResponse findTransporteurById(String id);
+//    TransporteurResponse findTransporteurById(String id);
 
     TransporteurResponse createTransporteur(TransporteurRequest dto);
 
@@ -28,10 +28,10 @@ public interface UserService {
 
     User findById(String id);
 
-    Page<User> findAllUsers(int page, int size);
+//    Page<User> findAllUsers(int page, int size);
 
     // Utilitaires
-    Transporteur getTransporteurEntityById(String id);
+//    Transporteur getTransporteurEntityById(String id);
 
-    void validerTransporteurDisponible(Transporteur transporteur);
+//    void validerTransporteurDisponible(Transporteur transporteur);
 }
