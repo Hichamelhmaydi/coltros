@@ -22,14 +22,14 @@ public interface ColisMapper {
         };
     }
 
-    @Mapping(target = "type", expression = "java(com.example.coltros.model.enums.TypeColis.STANDARD)")
+    @Mapping(target = "type", expression = "java(com.example.coltros.enums.TypeColis.STANDARD)")
     ColisStandard toStandardEntity(ColisRequest dto);
 
-    @Mapping(target = "type", expression = "java(com.example.coltros.model.enums.TypeColis.FRAGILE)")
+    @Mapping(target = "type", expression = "java(com.example.coltros.enums.TypeColis.FRAGILE)")
     @Mapping(target = "instructionsManutention", source = "instructionsManutention")
     ColisFragile toFragileEntity(ColisRequest dto);
 
-    @Mapping(target = "type", expression = "java(com.example.coltros.model.enums.TypeColis.FRIGO)")
+    @Mapping(target = "type", expression = "java(com.example.coltros.enums.TypeColis.FRIGO)")
     @Mapping(target = "temperatureMin", source = "temperatureMin")
     @Mapping(target = "temperatureMax", source = "temperatureMax")
     ColisFrigo toFrigoEntity(ColisRequest dto);

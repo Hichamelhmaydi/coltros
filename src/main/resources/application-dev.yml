@@ -17,7 +17,7 @@ spring:
 # JWT pour développement
 app:
   jwt:
-    secret: DevSecretKeyForColtrosDevelopmentOnly202
+    secret: DevSecretKeyForColtrosDevelopmentOnly2024MustBeAtLeast64CharsLong
     expiration: 86400000
 
 # Logs détaillés en dev

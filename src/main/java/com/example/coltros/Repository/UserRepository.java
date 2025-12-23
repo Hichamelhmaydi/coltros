@@ -30,5 +30,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     @Query("{'role': 'ADMIN'}")
     Page<User> findAdmins(Pageable pageable);
 
-    Optional<Object> findAllTransporteurs(Pageable pageable);
+    @Query("{ 'role': 'TRANSPORTEUR' }")
+    Page<User> findAllTransporteurs(Pageable pageable);
 }
