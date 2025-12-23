@@ -15,9 +15,10 @@ spring:
       indent-output: true
 
 # JWT pour développement
-jwt:
-  secret: DevSecretKeyForColtrosDevelopmentOnly202
-  expiration: 86400000 
+app:
+  jwt:
+    secret: DevSecretKeyForColtrosDevelopmentOnly202
+    expiration: 86400000
 
 # Logs détaillés en dev
 logging:

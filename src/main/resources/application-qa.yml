@@ -9,10 +9,10 @@ spring:
       indent-output: false
 
 # JWT pour production (variable d'environnement obligatoire)
-jwt:
-  secret: ${JWT_SECRET}
-  expiration: 28800000 # 8 heures en production
-  issuer: coltros-api-qa
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration: 28800000
 
 # Logs en production
 logging:
