@@ -1,9 +1,11 @@
-package com.example.coltros.Exception;
+package com.example.coltros.Service.impl;
 
 import com.example.coltros.DTO.filter.TransporteurFilterDTO;
 import com.example.coltros.DTO.Request.TransporteurRequest;
 import com.example.coltros.DTO.Request.TransporteurUpdateRequest;
 import com.example.coltros.DTO.Reponse.TransporteurResponse;
+import com.example.coltros.Exception.ResourceNotFoundException;
+import com.example.coltros.Exception.ValidationException;
 import com.example.coltros.Mapper.TransporteurMapper;
 import com.example.coltros.enums.StatutColis;
 import com.example.coltros.entity.Transporteur;
@@ -30,16 +32,18 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Object findAllTransporteurs(TransporteurFilterDTO filter) {
+    public Page<TransporteurResponse> findAllTransporteurs(TransporteurFilterDTO filter) {
         Pageable pageable = filter.toPageable();
 
+        // Si un filtre de spécialité est appliqué
         if (filter.getSpecialite() != null) {
             return transporteurRepository.findBySpecialite(filter.getSpecialite(), pageable)
                     .map(this::enrichTransporteurDTO);
         }
 
-        return userRepository.findAllTransporteurs(pageable)
-                .map(user -> enrichTransporteurDTO((Transporteur) user));
+        // Sinon, récupérer tous les transporteurs
+        return transporteurRepository.findAll(pageable)
+                .map(this::enrichTransporteurDTO);
     }
 
     private TransporteurResponse enrichTransporteurDTO(Transporteur transporteur) {

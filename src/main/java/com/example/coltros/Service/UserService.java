@@ -11,9 +11,7 @@ import org.springframework.data.domain.Pageable;
 public interface UserService {
 
     // Transporteurs
-    Object findAllTransporteurs(TransporteurFilterDTO filter);
-
-//    TransporteurResponse findTransporteurById(String id);
+    Page<TransporteurResponse> findAllTransporteurs(TransporteurFilterDTO filter);
 
     Page<TransporteurResponse> findTransporteursBySpecialite(String specialite, Pageable pageable);
 
@@ -31,11 +29,4 @@ public interface UserService {
     User findById(String id);
 
     Page<User> findAllUsers(Pageable pageable);
-
-//    Page<User> findAllUsers(int page, int size);
-
-    // Utilitaires
-//    Transporteur getTransporteurEntityById(String id);
-
-//    void validerTransporteurDisponible(Transporteur transporteur);
 }
