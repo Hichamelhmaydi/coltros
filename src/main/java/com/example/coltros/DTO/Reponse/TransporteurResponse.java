@@ -12,4 +12,7 @@ public class TransporteurResponse {
     private Statut statut;
     private Specialite specialite;
     private Long nombreColisEnLivraison;
+    private Long nombreColisLivre;
+    private Long nombreColisTotal;
+
 }
