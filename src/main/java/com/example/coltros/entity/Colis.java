@@ -59,4 +59,7 @@ public abstract class Colis {
     @LastModifiedDate
     @Field("updated_at")
     private LocalDateTime updatedAt;
+
+    public void setTransporteurNom(@NotBlank String login) {
+    }
 }
