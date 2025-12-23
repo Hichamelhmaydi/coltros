@@ -4,16 +4,18 @@ import com.example.coltros.DTO.filter.TransporteurFilterDTO;
 import com.example.coltros.DTO.Request.TransporteurRequest;
 import com.example.coltros.DTO.Request.TransporteurUpdateRequest;
 import com.example.coltros.DTO.Reponse.TransporteurResponse;
-import com.example.coltros.entity.Transporteur;
 import com.example.coltros.entity.User;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
     // Transporteurs
-    Page<TransporteurResponse> findAllTransporteurs(TransporteurFilterDTO filter);
+    Object findAllTransporteurs(TransporteurFilterDTO filter);
 
 //    TransporteurResponse findTransporteurById(String id);
+
+    Page<TransporteurResponse> findTransporteursBySpecialite(String specialite, Pageable pageable);
 
     TransporteurResponse createTransporteur(TransporteurRequest dto);
 
@@ -27,6 +29,8 @@ public interface UserService {
     User findByLogin(String login);
 
     User findById(String id);
+
+    Page<User> findAllUsers(Pageable pageable);
 
 //    Page<User> findAllUsers(int page, int size);
 
